@@ -8,7 +8,7 @@ jobs:
   build:
     runs-on: [ubuntu-latest]
     steps:
-      - name: Checkout Source
+      - name: Checkout source
         uses: actions/checkout@v3
       - name: Setup Java
         uses: actions/setup-java@v3
@@ -20,17 +20,17 @@ jobs:
       - name: Login to docker hub
         run: docker login -u ${{secrets.DOCKER_USERNAME}} -p ${{secrets.DOCKER_PASSWORD}}
       - name: Build docker image
-        run: docker build -t integrationninjas/springboot-example .
+        run: docker build -t integarationninjas/springboot-example .
       - name: Publish image to docker hub
-        run: docker psuh integrationninjas/springboot-example:latest
+        run: docker push integarationninjas/springboot-example:latest
 
   deploy:
     needs: build
     runs-on: [aws-ec2]
     steps:
-      - name: Pull image from docker hub
-        run: docker pull integrationninjas/springboot-example:latest
+      - name: Pull Image from docker hub
+        run: docker pull integarationninjas/springboot-example:latest
       - name: Delete old container
         run: docker rm -f springboot-example-container
-      - name: Run Docker container
-        run: docker run -d -p 8080:8080 --name springboot-example-container integrationninjas/springboot-example
+      - name: Run docker container
+        run: docker run -d -p 8080:8080 --name springboot-example-container integarationninjas/springboot-example
