@@ -2,7 +2,7 @@ name: Deploy to AWS
 
 on:
   push:
-    branches: [ deploy-to-ecs-fargate ]
+    branches: [ test-sql ]
 
 jobs:
   build-and-deploy:
