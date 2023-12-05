@@ -1,9 +1,7 @@
 name: Deploy to AWS
-
 on:
   push:
     branches: [ test-sql ]
-
 jobs:
   build-and-deploy:
     runs-on: [ ubuntu-latest ]
