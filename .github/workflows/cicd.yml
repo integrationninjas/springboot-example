@@ -1,0 +1,36 @@
+name: CICD
+
+on:
+  push:
+    branches: [deploy-to-ec2]
+
+jobs:
+  build:
+    runs-on: [ubuntu-latest]
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v3
+      - name: Setup Java
+        uses: actions/setup-java@v3
+        with:
+          distribution: 'temurin'
+          java-version: '17'
+      - name: Build Project
+        run: mvn clean install -DskipTests
+      - name: Login to docker hub
+        run: docker login -u ${{secrets.DOCKER_USERNAME}} -p ${{secrets.DOCKER_PASSWORD}}
+      - name: Build docker image
+        run: docker build -t integrationninjas/springboot-example .
+      - name: Publish image to docker hub
+        run: docker push integrationninjas/springboot-example:latest
+
+  deploy:
+    needs: build
+    runs-on: [aws-ec2]
+    steps:
+      - name: Pull Image from docker hub
+        run: docker pull integrationninjas/springboot-example:latest
+      - name: Delete old container
+        run: docker rm -f springboot-example-container
+      - name: Run docker container
+        run: docker run -d -p 8080:8080 --name springboot-example-container integrationninjas/springboot-example
