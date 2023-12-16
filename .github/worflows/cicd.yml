@@ -25,26 +25,17 @@ jobs:
           name: springboot-example
           path: ${{ github.workspace }}/target/*.jar
           
-deployment: 
-  runs-on: ubuntu-latest
-  needs: build
-  steps:
-    - name: Download artifact from build job
-      uses: actions/download-artifact@v2
-      with:
-        name: springboot-example
-    - name: Deploy to Azure App Service
-      uses: azure/webapps-deploy@v2
-      with:
-        app-name: springboot-app-test
-        publish-profile: ${{ secrets.azureWebAppPublishProfile }}
-        package: '*.jar'
-    
-
-
-
-  
-          
-          
-      
-        
+  deployment: 
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+      - name: Download artifact from build job
+        uses: actions/download-artifact@v2
+        with:
+          name: springboot-example
+      - name: Deploy to Azure App Service
+        uses: azure/webapps-deploy@v2
+        with:
+          app-name: springboot-app-test
+          publish-profile: ${{ secrets.azureWebAppPublishProfile }}
+          package: '*.jar'
