@@ -26,11 +26,11 @@ jobs:
           password: ${{ secrets.AZURE_REGISTRY_PASSWORD }}
       - name: Build, tag and push image to Azure Container Registry
         run: |
-          docker build -t integrationninjas.azurecr.io/integrationNinjas:${{ github.sha }} .
-          docker push integrationninjas.azurecr.io/integrationNinjas:${{ github.sha }}
+          docker build -t integrationninjas.azurecr.io/springboot-example:${{ github.sha }} .
+          docker push integrationninjas.azurecr.io/springboot-example:${{ github.sha }}
       - name: Deploy to Azure App Service
         uses: azure/webapps-deploy@v2
         with:
           app-name: springboot-app-test
           publish-profile: ${{ secrets.azureWebAppPublishProfile }}
-          images: integrationninjas.azurecr.io/integrationNinjas:${{ github.sha }}
+          images: integrationninjas.azurecr.io/springboot-example:${{ github.sha }}
