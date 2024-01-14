@@ -43,6 +43,11 @@
 			<version>2.35.0</version>
 			<scope>test</scope>
 		</dependency>
+		<dependency>
+			<groupId>org.ow2.asm</groupId>
+			<artifactId>asm</artifactId>
+			<version>9.1</version>
+		</dependency>
 	</dependencies>
 
 	<build>
