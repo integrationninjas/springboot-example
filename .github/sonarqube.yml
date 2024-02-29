@@ -1,0 +1,33 @@
+name: CICD
+
+on:
+  push:
+    branches: [sonarqube-setup]
+
+jobs:
+  build:
+    runs-on: [ubuntu-latest]
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v3
+      - name: Setup Java
+        uses: actions/setup-java@v3
+        with:
+          distribution: 'temurin'
+          java-version: '17'
+      - name: Build Project
+        run: mvn clean install -DskipTests
+      - name: Use SonarQube Scanner
+        uses: sonarsource/sonarqube-scan@v1.5.1
+        with:
+          # Replace with your SonarQube server URL
+          sonar.host.url: https://sonarcloud.io
+          # Replace with your SonarQube project key
+          sonar.projectKey: integrationninjas_springboot-example
+          # Replace with your SonarQube login token (optional)
+          #sonar.login: <your_login_token>
+          # Path to your sonar-project.properties file (optional)
+          #sonar.projectProperties: sonar-project.properties
+
+          # Optional: Analysis arguments (e.g., exclusions)
+          #sonar.analysis.exclude: "**/target/*"
