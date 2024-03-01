@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class TestController {
 
+	private static final String SECRET_API_KEY = "integrationninjas";
+
 	@GetMapping
 	public Object hello() {
 		Map<String, String> object = new HashMap<>();
@@ -18,9 +20,13 @@ public class TestController {
 		return object;
 	}
 
-	@GetMapping("/hello")
-	public String sayHello(@RequestParam String name) {
-		return "Hello, " + name + "!";
+	@GetMapping("/secret")
+	public String getSecret(@RequestParam String apiKey) {
+		if (apiKey.equals(SECRET_API_KEY)) {
+			return "The secret data is: ...";
+		} else {
+			return "Unauthorized!";
+		}
 	}
 
 }
