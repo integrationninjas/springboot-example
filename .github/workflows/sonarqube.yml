@@ -1,0 +1,25 @@
+name: Sonar Scan
+
+on:
+  push:
+    branches:
+      - sonarqube-setup
+
+jobs:
+  build-and-analyze:
+    runs-on: [ ubuntu-latest ]
+    steps:
+      - name: Checkout Source
+        uses: actions/checkout@v4
+      - name: Setup Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'temurin'
+          java-version: '17'
+      - name: Build Project
+        run: mvn clean install -DskipTests
+      - name: SonarQube Scan
+        uses: sonarsource/sonarqube-scan-action@master
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+          SONAR_HOST_URL: 'https://sonarcloud.io/'
