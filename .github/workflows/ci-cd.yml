@@ -1,6 +1,6 @@
 name: Deploy to Elastic Beanstalk
 
-on:
+'on':
   push:
     branches:
       - deploy-to-elastic-beanstalk
@@ -14,7 +14,7 @@ jobs:
       - name: Setup Java
         uses: actions/setup-java@v4
         with:
-          distribution: 'temurin'
+          distribution: temurin
           java-version: '17'
       - name: Build Project
         run: mvn clean install -DskipTests
@@ -23,8 +23,8 @@ jobs:
         with:
           aws_access_key: ${{ secrets.AWS_ACCESS_KEY }}
           aws_secret_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          application_name: 'Springboot-example-app'
-          environment_name: 'springboot-example-app-env'
+          application_name: Springboot-example-app
+          environment_name: Springboot-example-app-env-2
           version_label: ${{ github.sha }}
           region: us-east-1
-          deployment_package: target/springboot-example.jar
+          deployment_package: target/springboot-example.jar 
