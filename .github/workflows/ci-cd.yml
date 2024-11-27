@@ -27,4 +27,4 @@ jobs:
           environment_name: springboot-example-app-env
           version_label: ${{ github.sha }}
           region: us-east-1
-          deployment_package: target/springboot-example.jar
+          deployment_package: target/springboot-example.jar 
