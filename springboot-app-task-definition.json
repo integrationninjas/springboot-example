@@ -1,44 +1,57 @@
 {
-    "taskDefinitionArn": "arn:aws:ecs:eu-north-1:974142680250:task-definition/springboot-app-task-definition:6",
+    "compatibilities": [
+        "EC2",
+        "FARGATE"
+    ],
     "containerDefinitions": [
         {
-            "name": "springboot-example",
-            "image": "974142680250.dkr.ecr.eu-north-1.amazonaws.com/springboot-example:latest",
             "cpu": 0,
-            "portMappings": [
-                {
-                    "name": "springboot-example-8080-tcp",
-                    "containerPort": 8080,
-                    "hostPort": 8080,
-                    "protocol": "tcp",
-                    "appProtocol": "http"
-                }
-            ],
-            "essential": true,
             "environment": [],
             "environmentFiles": [],
-            "mountPoints": [],
-            "volumesFrom": [],
-            "ulimits": [],
+            "essential": true,
+            "image": "493233983811.dkr.ecr.us-east-1.amazonaws.com/springboot-example:latest",
             "logConfiguration": {
                 "logDriver": "awslogs",
                 "options": {
-                    "awslogs-create-group": "true",
                     "awslogs-group": "/ecs/springboot-app-task-definition",
-                    "awslogs-region": "eu-north-1",
+                    "awslogs-create-group": "true",
+                    "awslogs-region": "us-east-1",
                     "awslogs-stream-prefix": "ecs"
                 },
                 "secretOptions": []
-            }
+            },
+            "mountPoints": [],
+            "name": "springboot-example",
+            "portMappings": [
+                {
+                    "appProtocol": "http",
+                    "containerPort": 80,
+                    "hostPort": 80,
+                    "name": "springboot-example-80-tcp",
+                    "protocol": "tcp"
+                },
+                {
+                    "appProtocol": "http",
+                    "containerPort": 8080,
+                    "hostPort": 8080,
+                    "name": "springboot-example-8080-tcp",
+                    "protocol": "tcp"
+                }
+            ],
+            "systemControls": [],
+            "ulimits": [],
+            "volumesFrom": []
         }
     ],
+    "cpu": "1024",
+    "enableFaultInjection": false,
+    "executionRoleArn": "arn:aws:iam::493233983811:role/ecsTaskExecutionRole",
     "family": "springboot-app-task-definition",
-    "taskRoleArn": "arn:aws:iam::974142680250:role/ecsTaskExecutionRole",
-    "executionRoleArn": "arn:aws:iam::974142680250:role/ecsTaskExecutionRole",
+    "memory": "3072",
     "networkMode": "awsvpc",
-    "revision": 6,
-    "volumes": [],
-    "status": "ACTIVE",
+    "placementConstraints": [],
+    "registeredAt": "2025-09-23T19:14:25.667Z",
+    "registeredBy": "arn:aws:iam::493233983811:root",
     "requiresAttributes": [
         {
             "name": "com.amazonaws.ecs.capability.logging-driver.awslogs"
@@ -68,21 +81,17 @@
             "name": "com.amazonaws.ecs.capability.docker-remote-api.1.29"
         }
     ],
-    "placementConstraints": [],
-    "compatibilities": [
-        "EC2",
-        "FARGATE"
-    ],
     "requiresCompatibilities": [
         "FARGATE"
     ],
-    "cpu": "1024",
-    "memory": "3072",
+    "revision": 1,
     "runtimePlatform": {
         "cpuArchitecture": "X86_64",
         "operatingSystemFamily": "LINUX"
     },
-    "registeredAt": "2023-12-08T19:03:51.274Z",
-    "registeredBy": "arn:aws:iam::974142680250:user/integration-ninjas",
+    "status": "ACTIVE",
+    "taskDefinitionArn": "arn:aws:ecs:us-east-1:493233983811:task-definition/springboot-app-task-definition:1",
+    "taskRoleArn": "arn:aws:iam::493233983811:role/ecsTaskExecutionRole",
+    "volumes": [],
     "tags": []
 }
