@@ -1,0 +1,35 @@
+name: Deploy to Elastic Beanstalk
+
+on:
+  push:
+    branches:
+      - deploy-to-elastic-beanstalk
+  workflow_dispatch:
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Source
+        uses: actions/checkout@v4
+
+      - name: Setup Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'temurin'
+          java-version: '17'
+          cache: maven
+
+      - name: Build Project
+        run: mvn -B clean package -DskipTests
+
+      - name: Deploy to EB
+        uses: einaregilsson/beanstalk-deploy@v21
+        with:
+          aws_access_key: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws_secret_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          application_name: 'springboot-ex-app'
+          environment_name: 'springboot-ex-app-env'
+          version_label: ${{ github.sha }}-${{ github.run_number }}
+          region: us-east-2
+          deployment_package: target/springboot-example.jar

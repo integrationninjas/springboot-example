@@ -2,4 +2,8 @@
 Spring Boot Example Application
 
 
-API Endpoint: http://localhost:8080/
+API Endpoints:
+
+http://localhost:8080/
+
+http://localhost:8080/api/bitcoin/currentPrice
